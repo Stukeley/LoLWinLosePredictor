@@ -112,16 +112,35 @@ namespace MatchSerializer
 
 				string newLine = "";
 
+				// Get the team the specified player was on
+				var teamId = detail.Participants.FirstOrDefault(x => x.ParticipantId == participantId).TeamId;
+
 				// Get champions and save them to CSV
-				// TODO: divide the champions into teams (ally team vs enemy team)
-				foreach (var participant in detail.Participants)
+				// TODO: divide matches into normal/ranked/etc vs bot/tutorial/etc
+
+				var allyTeamChampions = detail.Participants.Where(x => x.TeamId == teamId).Select(x => x.ChampionId);
+
+				newLine += "(";
+
+				foreach (var champ in allyTeamChampions)
 				{
-					var championId = participant.ChampionId;
-					newLine += $"{ChampionIdNamePairs.ChampionPairs[championId]}, ";
+					newLine += $"{ChampionIdNamePairs.ChampionPairs[champ]}, ";
 				}
 
+				newLine += "), ";
+
+				var enemyTeamChampions = detail.Participants.Where(x => x.TeamId != teamId).Select(x => x.ChampionId);
+
+				newLine += "(";
+
+				foreach (var champ in enemyTeamChampions)
+				{
+					newLine += $"{ChampionIdNamePairs.ChampionPairs[champ]}, ";
+				}
+
+				newLine += "), ";
+
 				// Check if the match was won by the specified player or not
-				var teamId = detail.Participants.FirstOrDefault(x => x.ParticipantId == participantId).TeamId;
 				var outcome = detail.Participants.Where(x => x.TeamId == teamId).FirstOrDefault()?.Stats.Winner;
 
 				// 1 means win, 0 means loss (relative to the specified player)
