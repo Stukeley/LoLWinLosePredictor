@@ -14,7 +14,7 @@ namespace MatchSerializer
 	/// </summary>
 	public static class ChampionIdNamePairs
 	{
-		private static string _championFileName = "champion2.json";
+		private static string _championFileName = "champion.json";
 		private static string _outputFileName = "championSerialized.json";
 		public static Dictionary<int, string> ChampionPairs;
 

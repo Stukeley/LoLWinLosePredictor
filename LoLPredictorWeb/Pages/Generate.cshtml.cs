@@ -1,0 +1,16 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+
+namespace LoLPredictorWeb.Pages
+{
+    public class GenerateModel : PageModel
+    {
+        public void OnGet()
+        {
+        }
+    }
+}

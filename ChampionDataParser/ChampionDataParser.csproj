@@ -12,9 +12,6 @@
     <None Update="champion.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="champion2.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="championSerialized.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

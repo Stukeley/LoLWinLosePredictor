@@ -13,6 +13,7 @@ namespace MatchSerializer
 {
 	/// <summary>
 	/// Fetches match history data for the specified SummonerName and Region, and creates a .CSV file based on it.
+	/// Only takes into account normal and ranked 5v5 games.
 	/// </summary>
 	public static class Serializer
 	{
@@ -53,30 +54,20 @@ namespace MatchSerializer
 			}
 		}
 
-		public static void Connect(string username, string region)
+		public static async Task<string> Connect(string username, string region)
 		{
+			string result = "";
+			Debug.WriteLine("Connecting!");
+
 			try
 			{
 				var parsedRegion = (Region)Enum.Parse(typeof(Region), region);
-				Connect(username, parsedRegion).Wait();
-			}
-			catch (Exception e)
-			{
-				Debug.WriteLine(e.Message);
-			}
-		}
 
-		public static async Task Connect(string username, Region region)
-		{
-			Debug.WriteLine("Connecting!");
+				Username = username;
+				Region = parsedRegion;
 
-			Username = username;
-			Region = region;
+				_api = RiotApi.GetDevelopmentInstance(_apiKey);
 
-			_api = RiotApi.GetDevelopmentInstance(_apiKey);
-
-			try
-			{
 				var summoner = await _api.Summoner.GetSummonerByNameAsync(Region, Username);
 				var accId = summoner.AccountId;
 
@@ -85,24 +76,33 @@ namespace MatchSerializer
 				Debug.WriteLine("Got match history");
 				NumberOfRequests += 2;
 
-				await SerializeToCsv(matchHistory);
+				result = await SerializeToCsv(matchHistory);
 			}
 			catch (Exception e)
 			{
 				Debug.WriteLine(e.Message);
 			}
+
+			return result;
 		}
 
-		private static async Task SerializeToCsv(MatchList matchHistory)
+		private static async Task<string> SerializeToCsv(MatchList matchHistory)
 		{
+			var countedQueueIds = new int[] { 2, 4, 6, 14, 400, 420, 430, 440 };
 			var csv = new StringBuilder();
 
 			int participantId;
 
-			csv.AppendLine("AllyTeam(Champion1, Champion2, Champion3, Champion4, Champion5), EnemyTeam(Champion6, Champion7, Champion8, Champion9, Champion10), Outcome");
+			csv.AppendLine("SpecifiedPlayer,Ally1,Ally2,Ally3,Ally4,Enemy1,Enemy2,Enemy3,Enemy4,Enemy5,Outcome");
 
 			foreach (var match in matchHistory.Matches)
 			{
+				// Only count the game if it's a non-bot non-tutorial game (QueueID: 2,4,6,14,400,420,430,440)
+				if (!countedQueueIds.Contains(match.Queue))
+				{
+					continue;
+				}
+
 				// Get match details by id
 				var id = match.GameId;
 				var detail = await _api.Match.GetMatchAsync(Region, id);
@@ -116,29 +116,24 @@ namespace MatchSerializer
 				var teamId = detail.Participants.FirstOrDefault(x => x.ParticipantId == participantId).TeamId;
 
 				// Get champions and save them to CSV
-				// TODO: divide matches into normal/ranked/etc vs bot/tutorial/etc
 
-				var allyTeamChampions = detail.Participants.Where(x => x.TeamId == teamId).Select(x => x.ChampionId);
+				var playersChampion = detail.Participants.Where(x => x.ParticipantId == participantId).FirstOrDefault().ChampionId;
 
-				newLine += "(";
+				newLine += $"{ChampionIdNamePairs.ChampionPairs[playersChampion]},";
+
+				var allyTeamChampions = detail.Participants.Where(x => x.TeamId == teamId && x.ParticipantId != participantId).Select(x => x.ChampionId);
 
 				foreach (var champ in allyTeamChampions)
 				{
-					newLine += $"{ChampionIdNamePairs.ChampionPairs[champ]}, ";
+					newLine += $"{ChampionIdNamePairs.ChampionPairs[champ]},";
 				}
-
-				newLine += "), ";
 
 				var enemyTeamChampions = detail.Participants.Where(x => x.TeamId != teamId).Select(x => x.ChampionId);
 
-				newLine += "(";
-
 				foreach (var champ in enemyTeamChampions)
 				{
-					newLine += $"{ChampionIdNamePairs.ChampionPairs[champ]}, ";
+					newLine += $"{ChampionIdNamePairs.ChampionPairs[champ]},";
 				}
-
-				newLine += "), ";
 
 				// Check if the match was won by the specified player or not
 				var outcome = detail.Participants.Where(x => x.TeamId == teamId).FirstOrDefault()?.Stats.Winner;
@@ -149,8 +144,8 @@ namespace MatchSerializer
 				csv.AppendLine(newLine);
 			}
 
-			// TODO: download prompt
 			File.WriteAllText(_outputFilePath, csv.ToString());
+			return csv.ToString();
 		}
 	}
 }
