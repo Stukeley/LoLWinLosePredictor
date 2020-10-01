@@ -5,13 +5,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="champion.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="champion.json">
+    <Content Include="champion.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="championSerialized.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

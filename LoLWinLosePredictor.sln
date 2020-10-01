@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StartupDebug", "StartupDebu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChampionDataParser", "ChampionDataParser\ChampionDataParser.csproj", "{ABFE12B3-F781-4665-826B-B0B9039CE233}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoLPredictorWeb", "LoLPredictorWeb\LoLPredictorWeb.csproj", "{D56C3B21-11D5-485B-9F85-E9809601BF85}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoLPredictorWeb", "LoLPredictorWeb\LoLPredictorWeb.csproj", "{F6CBD8BA-2498-466D-A855-A6549B8C60B8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,10 @@ Global
 		{ABFE12B3-F781-4665-826B-B0B9039CE233}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ABFE12B3-F781-4665-826B-B0B9039CE233}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ABFE12B3-F781-4665-826B-B0B9039CE233}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D56C3B21-11D5-485B-9F85-E9809601BF85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D56C3B21-11D5-485B-9F85-E9809601BF85}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D56C3B21-11D5-485B-9F85-E9809601BF85}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D56C3B21-11D5-485B-9F85-E9809601BF85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6CBD8BA-2498-466D-A855-A6549B8C60B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6CBD8BA-2498-466D-A855-A6549B8C60B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6CBD8BA-2498-466D-A855-A6549B8C60B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6CBD8BA-2498-466D-A855-A6549B8C60B8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

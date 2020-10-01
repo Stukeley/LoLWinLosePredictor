@@ -1,0 +1,29 @@
+﻿@{
+    ViewData["Title"] = "Generate data";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Generate data using your match history</h1>
+</div>
+<form action="/Generate/InfoSubmitted" method="post">
+    <input type="text" name="usernameData" />
+    <fieldset>
+        Region
+        <select id="Region" name="region">
+            <option value="Euw" selected="selected">Euw</option>
+            <option value="Eune">Eune</option>
+            <option value="Na">Na</option>
+            <option value="Br">Br</option>
+            <option value="Kr">Kr</option>
+            <option value="Lan">Lan</option>
+            <option value="Las">Las</option>
+            <option value="Oce">Oce</option>
+            <option value="Ru">Ru</option>
+            <option value="Tr">Tr</option>
+            <option value="Jp">Jp</option>
+        </select>
+        <p>
+            <input type="submit" value="Submit" />
+        </p>
+    </fieldset>
+</form>

@@ -19,8 +19,8 @@ namespace MatchSerializer
 	{
 		private static RiotApi _api;
 		private static string _apiKey;
-		private static string _apiKeyPath = "ApiKey.txt";
-		private static string _outputFilePath = "outputData.csv";
+		private static string _apiKeyPath = @"E:\Programowanie\Stukeley\LoLWinLosePredictor\MatchSerializer\ApiKey.txt";
+		private static string _outputFilePath = @"E:\Programowanie\Stukeley\LoLWinLosePredictor\MatchSerializer\outputData.csv";
 		private static int _numberOfRequests = 0;
 		public static int NumberOfRequests
 		{
