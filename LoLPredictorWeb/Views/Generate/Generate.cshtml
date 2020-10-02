@@ -1,13 +1,14 @@
 ﻿@{
-    ViewData["Title"] = "Generate data";
+    ViewData["Title"] = "Generate Data";
 }
 
 <div class="text-center">
     <h1 class="display-4">Generate data using your match history</h1>
+    <p>Enter your username, pick a server and wait. The site will prompt you to download your serialized match data.</p>
 </div>
-<form action="/Generate/InfoSubmitted" method="post">
-    <input type="text" name="usernameData" />
-    <fieldset>
+<form action="/Generate/InfoSubmitted" method="post" style="margin-top:50px;">
+    <input type="text" name="usernameData" style="margin-bottom:10px;"/>
+    <fieldset style="margin-bottom:10px;">
         Region
         <select id="Region" name="region">
             <option value="Euw" selected="selected">Euw</option>
@@ -22,7 +23,7 @@
             <option value="Tr">Tr</option>
             <option value="Jp">Jp</option>
         </select>
-        <p>
+        <p style="margin-top:10px;">
             <input type="submit" value="Submit" />
         </p>
     </fieldset>

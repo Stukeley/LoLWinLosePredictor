@@ -1,4 +1,10 @@
 SpecifiedPlayer,Ally1,Ally2,Ally3,Ally4,Enemy1,Enemy2,Enemy3,Enemy4,Enemy5,Outcome
+Ekko,TwistedFate,Soraka,Fiddlesticks,Thresh,Malzahar,Jinx,Malphite,Mordekaiser,Fiora,1
+Jinx,Yone,Shen,Thresh,Warwick,Akali,Lucian,Janna,Tryndamere,Jax,0
+Xayah,Sett,JarvanIV,Veigar,Sona,Garen,Ezreal,Yasuo,Lillia,Jax,1
+Jinx,Brand,Lillia,Quinn,Zyra,Pyke,Zac,Azir,Gragas,Aphelios,1
+Jinx,Darius,Lillia,Thresh,Yasuo,Blitzcrank,Nunu,Ezreal,Renekton,Orianna,0
+Xayah,Syndra,Kennen,LeeSin,Thresh,Lucian,Yasuo,Kayn,Ahri,Orianna,1
 Jinx,Yasuo,Brand,Fizz,Khazix,Leblanc,Fiora,Tristana,Fiddlesticks,Blitzcrank,0
 Ziggs,Sona,Lucian,Singed,Khazix,Xayah,Sylas,Elise,Yasuo,Rakan,1
 MissFortune,Graves,Rengar,Akali,Morgana,Nami,Katarina,Warwick,Zed,Draven,1

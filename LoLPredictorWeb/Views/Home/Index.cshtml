@@ -3,6 +3,11 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Welcome to LoLPredictor</h1>
+    <p style="margin-top:20px;">LoLPredictor is a web application that uses Machine Learning to predict the outcome of your League of Legends matches.</p>
+    <p>You first need to serialize your data by going to <a asp-area="" asp-controller="Generate" asp-action="Generate">Generate</a>, entering your Summoner Name and downloading a .csv file containing your match summaries.</p>
+    <p>Then, you need to train the AI using that data.</p>
+    <p>You can skip the above and just use the data I fed to the AI to predict your match as well.</p>
+    <p>Afterwards, you can predict your current match outcome (win/loss) based on that previous data, by entering your summoner name!</p>
+    <p>Please note - this is not a serious project, and the accuracy is not very high!</p>
 </div>
