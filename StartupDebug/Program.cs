@@ -1,5 +1,4 @@
-﻿using MatchSerializer;
-using System;
+﻿using MachineLearningModel;
 
 namespace StartupDebug
 {
@@ -10,12 +9,22 @@ namespace StartupDebug
 	{
 		private static void Main()
 		{
-			string username = "Faulty Carry";
-			string region = "Euw";
+			////string username = "Faulty Carry";
+			////string region = "Euw";
+			////string csv = Serializer.Connect(username, region).Result;
+			////Console.WriteLine(csv);
 
-			string csv = Serializer.Connect(username, region).Result;
+			// ML.NET
+			ModelBuilder.CreateModel();
 
-			Console.WriteLine(csv);
+			var example = new ModelInput()
+			{
+				SpecifiedPlayer = "Ekko",
+				AllyTeam = new string[] { "TwistedFate", "Soraka", "Fiddlesticks", "Thresh" },
+				EnemyTeam = new string[] { "Malzahar", "Jinx", "Malphite", "Mordekaiser", "Fiora" },
+			};
+
+			var output = ConsumeModel.Predict(example); // Outcome: true, Score: 0.78
 		}
 	}
 }

@@ -5,14 +5,14 @@ namespace MachineLearningModel
 {
 	public class ConsumeModel
 	{
+		private static string ModelPath = @"E:\Programowanie\Stukeley\LoLWinLosePredictor\MachineLearningModel\TrainedModel.zip";
 		private static Lazy<PredictionEngine<ModelInput, ModelOutput>> PredictionEngine = new Lazy<PredictionEngine<ModelInput, ModelOutput>>(CreatePredictionEngine);
 
 		public static PredictionEngine<ModelInput, ModelOutput> CreatePredictionEngine()
 		{
 			MLContext mlContext = new MLContext();
 
-			string modelPath = @"";
-			ITransformer mlModel = mlContext.Model.Load(modelPath, out _);
+			ITransformer mlModel = mlContext.Model.Load(ModelPath, out _);
 			var predEngine = mlContext.Model.CreatePredictionEngine<ModelInput, ModelOutput>(mlModel);
 
 			return predEngine;

@@ -1,4 +1,6 @@
 ﻿using Microsoft.ML;
+using Microsoft.ML.Data;
+using Microsoft.ML.Trainers;
 using System.Diagnostics;
 
 namespace MachineLearningModel
@@ -18,24 +20,35 @@ namespace MachineLearningModel
 
 			ITransformer model = TrainModel(trainingDataView, trainingPipeline);
 
-			Evaluate(trainingDataView, trainingPipeline);
+			//Evaluate(trainingDataView);
 
 			SaveModel(model, trainingDataView.Schema);
 		}
 
 		private static IEstimator<ITransformer> BuildTrainingPipeline()
 		{
-			var dataProcessPipeline = mlContext.Transforms.Conversion.MapValueToKey("Outcome", "Outcome")
-				.Append(mlContext.Transforms.CopyColumns("SpecifiedPlayer", "SpecifiedPlayer"))
-				.Append(mlContext.Transforms.CopyColumns("AllyTeam", "AllyTeam"))
-				.Append(mlContext.Transforms.CopyColumns("EnemyTeam", "EnemyTeam"))
-				.AppendCacheCheckpoint(mlContext);
+			var options = new AveragedPerceptronTrainer.Options
+			{
+				LossFunction = new SmoothedHingeLoss(),
+				LearningRate = 0.1f,
+				LazyUpdate = false,
+				RecencyGain = 0.1f,
+				NumberOfIterations = 10
+			};
 
-			var trainer = mlContext.MulticlassClassification.Trainers.OneVersusAll(mlContext.BinaryClassification.Trainers.AveragedPerceptron(labelColumnName: "Outcome", numberOfIterations: 10, featureColumnName: "Features"), labelColumnName: "Outcome").Append(mlContext.Transforms.Conversion.MapKeyToValue("PredictedLabel", "PredictedLabel"));
+			////var dataProcessPipeline = mlContext.Transforms.Concatenate("Features", "SpecifiedPlayer", "AllyTeam", "EnemyTeam")
+			////	.Append(mlContext.BinaryClassification.Trainers.AveragedPerceptron(options));
 
-			var trainingPipeline = dataProcessPipeline.Append(trainer);
 
-			return trainingPipeline;
+			var dataProcessPipeline = mlContext.Transforms.CopyColumns("Label", "Label")
+				.Append(mlContext.Transforms.Text.FeaturizeText("SpecifiedText", "SpecifiedPlayer"))
+				.Append(mlContext.Transforms.Text.FeaturizeText("AllyText", "AllyTeam"))
+				.Append(mlContext.Transforms.Text.FeaturizeText("EnemyText", "EnemyTeam"))
+				.Append(mlContext.Transforms.Concatenate("Features", "SpecifiedText", "AllyText", "EnemyText"))
+				.AppendCacheCheckpoint(mlContext)
+				.Append(mlContext.BinaryClassification.Trainers.AveragedPerceptron(options));
+
+			return dataProcessPipeline;
 		}
 
 		private static ITransformer TrainModel(IDataView trainingDataView, IEstimator<ITransformer> trainingPipeline)
@@ -47,9 +60,11 @@ namespace MachineLearningModel
 			return model;
 		}
 
-		private static void Evaluate(IDataView trainingDataView, IEstimator<ITransformer> trainingPipeline)
+		private static void Evaluate(IDataView trainingDataView)
 		{
+			var metrics = mlContext.BinaryClassification.EvaluateNonCalibrated(trainingDataView);
 
+			PrintMetrics(metrics);
 		}
 
 		private static void SaveModel(ITransformer mlModel, DataViewSchema modelInputSchema)
@@ -57,6 +72,22 @@ namespace MachineLearningModel
 			mlContext.Model.Save(mlModel, modelInputSchema, ModelPath);
 
 			Debug.WriteLine($"Model saved to {ModelPath}");
+		}
+
+		private static void PrintMetrics(BinaryClassificationMetrics metrics)
+		{
+			Debug.WriteLine($"Accuracy: {metrics.Accuracy:F2}");
+			Debug.WriteLine($"AUC: {metrics.AreaUnderRocCurve:F2}");
+			Debug.WriteLine($"F1 Score: {metrics.F1Score:F2}");
+			Debug.WriteLine($"Negative Precision: " +
+				$"{metrics.NegativePrecision:F2}");
+
+			Debug.WriteLine($"Negative Recall: {metrics.NegativeRecall:F2}");
+			Debug.WriteLine($"Positive Precision: " +
+				$"{metrics.PositivePrecision:F2}");
+
+			Debug.WriteLine($"Positive Recall: {metrics.PositiveRecall:F2}\n");
+			Debug.WriteLine(metrics.ConfusionMatrix.GetFormattedConfusionTable());
 		}
 	}
 }

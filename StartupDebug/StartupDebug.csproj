@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MachineLearningModel\MachineLearningModel.csproj" />
     <ProjectReference Include="..\MatchSerializer\MatchSerializer.csproj" />
   </ItemGroup>
 
