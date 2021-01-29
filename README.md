@@ -6,8 +6,8 @@ An upcoming project that will predict the odds of winning a League of Legends ga
 # Technical specification
 - .NET Core 3.1
 - ML.NET
-- ASP.NET Core (soon)
-- for now, Console Application
+- ASP.NET Core
+- also available in the form of a Console App
 - [RiotSharp](https://github.com/BenFradet/RiotSharp)
 
 # Main Goals
