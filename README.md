@@ -1,4 +1,6 @@
 # LoLWinLosePredictor
+<a href="https://www.codefactor.io/repository/github/stukeley/lolwinlosepredictor/overview/master"><img src="https://www.codefactor.io/repository/github/stukeley/lolwinlosepredictor/badge/master" alt="CodeFactor" /></a>
+
 An upcoming project that will predict the odds of winning a League of Legends game using ML.NET. For now console only (soon to be ASP.NET).
 
 # Technical specification
