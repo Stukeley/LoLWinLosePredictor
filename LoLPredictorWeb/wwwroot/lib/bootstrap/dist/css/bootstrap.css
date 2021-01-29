@@ -68,9 +68,13 @@ body {
 }
 
 hr {
-  box-sizing: content-box;
-  height: 0;
-  overflow: visible;
+    box-sizing: content-box;
+    height: 0;
+    overflow: visible;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -181,8 +185,11 @@ pre,
 code,
 kbd,
 samp {
-  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-size: 1em;
+    font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-size: 1em;
+    display: block;
+    font-size: 87.5%;
+    color: #212529;
 }
 
 pre {
@@ -419,13 +426,6 @@ h6, .h6 {
   line-height: 1.2;
 }
 
-hr {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  border: 0;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-}
-
 small,
 .small {
   font-size: 80%;
@@ -526,12 +526,6 @@ kbd kbd {
   padding: 0;
   font-size: 100%;
   font-weight: 700;
-}
-
-pre {
-  display: block;
-  font-size: 87.5%;
-  color: #212529;
 }
 
 pre code {
@@ -4826,10 +4820,6 @@ input[type="button"].btn-block {
   text-decoration: underline;
 }
 
-.breadcrumb-item + .breadcrumb-item:hover::before {
-  text-decoration: none;
-}
-
 .breadcrumb-item.active {
   color: #6c757d;
 }
@@ -5854,14 +5844,14 @@ a.close.disabled {
   align-items: flex-start;
   -ms-flex-pack: justify;
   justify-content: space-between;
-  padding: 1rem 1rem;
+  padding: 1rem;
   border-bottom: 1px solid #dee2e6;
   border-top-left-radius: 0.3rem;
   border-top-right-radius: 0.3rem;
 }
 
 .modal-header .close {
-  padding: 1rem 1rem;
+  padding: 1rem;
   margin: -1rem -1rem -1rem auto;
 }
 

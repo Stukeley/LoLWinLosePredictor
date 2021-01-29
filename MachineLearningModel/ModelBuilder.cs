@@ -39,7 +39,6 @@ namespace MachineLearningModel
 			////var dataProcessPipeline = mlContext.Transforms.Concatenate("Features", "SpecifiedPlayer", "AllyTeam", "EnemyTeam")
 			////	.Append(mlContext.BinaryClassification.Trainers.AveragedPerceptron(options));
 
-
 			var dataProcessPipeline = mlContext.Transforms.CopyColumns("Label", "Label")
 				.Append(mlContext.Transforms.Text.FeaturizeText("SpecifiedText", "SpecifiedPlayer"))
 				.Append(mlContext.Transforms.Text.FeaturizeText("AllyText", "AllyTeam"))
